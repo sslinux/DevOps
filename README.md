@@ -9,6 +9,7 @@
 
 ## 运维工具：
 * [Ansible](https://github.com/sslinux/DevOps/blob/master/ansible/ansible.md)
+* [Ansible](ansible/ansible.md)
 
 ## 虚拟化：
 * [Xen](https://github.com/sslinux/DevOps/blob/master/virtualization/xen/xen.md)
