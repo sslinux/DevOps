@@ -1,4 +1,5 @@
 # Bash基础特性及shell脚本编程
+<span id="目录">目录</span>
 - [1、命令历史](#01命令历史)  
 - [2、命令补全](#02命令补全)  
 - [3、路径补全](#03路径补全)  
@@ -72,6 +73,7 @@
          export 变量名=“VALUE”
 
          或： VARNAME=“VALUE” export VARNAME
+[返回目录](#目录)
 
 ## <span id="02命令补全">02命令补全</span>
 
