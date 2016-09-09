@@ -7,13 +7,13 @@
 - [6、命令别名](#06命令别名)
 - [7、通配符glob](#07通配符glob)
 - [8、bash快捷键](#08bash快捷键)
-- [9、Bash的IO重定向及管道](#09Bash的IO重定向及管道)
+- [9、bash的IO重定向及管道](#09bash的io重定向及管道)
 - [10、shell编程环境](#10shell编程环境)
-- [11、Bash变量类型](#11Bash变量类型)
-- [12、Bash的配置文件](#12Bash的配置文件)
-- [13、Bash中的算术运算符](#13Bash中的算术运算符)
-- [14、Bash条件测试](#14Bash条件测试)
-- [15、Bash脚本之用户交互](#15Bash脚本编程之用户交互)
+- [11、bash变量类型](#11bash变量类型)
+- [12、bash的配置文件](#12bash的配置文件)
+- [13、bash中的算术运算符](#13bash中的算术运算符)
+- [14、bash条件测试](#14bash条件测试)
+- [15、bash脚本之用户交互](#15bash脚本编程之用户交互)
 - [16、流程控制](#16流程控制)
 - [17、数组](#17数组)
 - [18、的字符串处理工具](#18的字符串处理工具)
@@ -87,19 +87,19 @@
 
 ## <span id="08bash快捷键">08bash快捷键</span>
 
-## <span id="09Bash的IO重定向及管道">09Bash的IO重定向及管道</span>
+## <span id="09bash的IO重定向及管道">09bash的io重定向及管道</span>
 
 ## <span id="10shell编程环境">10shell编程环境</span>
 
-## <span id="11Bash变量类型">11Bash变量类型</span>
+## <span id="11bash变量类型">11bash变量类型</span>
 
-## <span id="12Bash的配置文件">12Bash的配置文件</span>
+## <span id="12bash的配置文件">12bash的配置文件</span>
 
-## <span id="13Bash中的算术运算符">13Bash中的算术运算符</span>
+## <span id="13bash中的算术运算符">13bash中的算术运算符</span>
 
-## <span id="14Bash条件测试">14Bash条件测试</span>
+## <span id="14bash条件测试">14bash条件测试</span>
 
-## <span id="15Bash脚本编程之用户交互">15Bash脚本编程之用户交互</span>
+## <span id="15bash脚本编程之用户交互">15bash脚本编程之用户交互</span>
 
 
 ## <span id="16流程控制">16流程控制</span>
