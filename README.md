@@ -1,3 +1,3 @@
 # guiyin.xiong@gmail.com
 
-* [Bash](./Bash/shell.md)
+* [Bash](https://github.com/sslinux/DevOps/blob/master/Bash/Shell.md)
