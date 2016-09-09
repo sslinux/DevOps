@@ -2,6 +2,7 @@
 ### 个人笔记，不喜勿喷！
 ### guiyin.xiong@gamil.com
 ### 如若有坑，欢迎骚扰！
+###*****************************Begin**********************************
 
 ## Linux基础:
 * [Bash特性及脚本编程](https://github.com/sslinux/DevOps/blob/master/Bash/Shell.md)
