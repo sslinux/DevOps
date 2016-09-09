@@ -74,7 +74,7 @@
 
          或： VARNAME=“VALUE” export VARNAME
          
-[目录](#目录)
+[返回目录](#目录)
 
 ## <span id="02命令补全">02命令补全</span>
 [目录](#目录)
