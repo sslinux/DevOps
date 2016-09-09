@@ -3,3 +3,4 @@
 
 
 * [Bash特性及脚本编程](https://github.com/sslinux/DevOps/blob/master/Bash/Shell.md)
+* [Bash特性及脚本编程](bash/shell.md)
