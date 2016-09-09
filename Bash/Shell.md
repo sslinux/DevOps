@@ -73,6 +73,7 @@
          export 变量名=“VALUE”
 
          或： VARNAME=“VALUE” export VARNAME
+         
 [目录](#目录)
 
 ## <span id="02命令补全">02命令补全</span>
