@@ -9,4 +9,6 @@
 * [Ansible](https://github.com/sslinux/DevOps/blob/master/ansible/ansible.md)
 
 ## 虚拟化：
+* [Xen](https://github.com/sslinux/DevOps/blob/master/virtualization/xen/xen.md)
 * [KVM](https://github.com/sslinux/DevOps/blob/master/virtualization/kvm/kvm.md)
+* [Docker](https://github.com/sslinux/DevOps/blob/master/virtualization/docker/docker.md)
