@@ -6,4 +6,7 @@
 * [Bash特性及脚本编程](https://github.com/sslinux/DevOps/blob/master/Bash/Shell.md)
 
 ## 运维工具：
-* [Ansible]()
+* [Ansible](https://github.com/sslinux/DevOps/blob/master/ansible/ansible.md)
+
+## 虚拟化：
+* [KVM]()
