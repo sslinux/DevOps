@@ -6,7 +6,7 @@
 - [5、命令的执行状态结果](#05命令的执行状态结果)  
 - [6、命令别名](#06命令别名)
 - [7、通配符glob](#07通配符glob)
-- [8、Bash快捷键](#08Bash快捷键)
+- [8、bash快捷键](#08bash快捷键)
 - [9、Bash的IO重定向及管道](#09Bash的IO重定向及管道)
 - [10、shell编程环境](#10shell编程环境)
 - [11、Bash变量类型](#11Bash变量类型)
@@ -85,7 +85,7 @@
 
 ## <span id="07通配符glob">07通配符glob</span>
 
-## <span id="08Bash快捷键">08Bash快捷键</span>
+## <span id="08bash快捷键">08bash快捷键</span>
 
 ## <span id="09Bash的IO重定向及管道">09Bash的IO重定向及管道</span>
 
