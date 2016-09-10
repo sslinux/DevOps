@@ -98,18 +98,95 @@ Tab键补全：
 
 ## <span id="03路径补全">03路径补全</span>
 
-以用户输入的字符串作为路径开头，并在其指定路径的上级目录下搜索以指定字符串开头的文件名；     
-    如果唯一，则直接补全；   
+以用户输入的字符串作为路径开头，并在其指定路径的上级目录下搜索以指定字符串开头的文件名；       
+
+    如果唯一，则直接补全；     
+
     否则，再次Tab，列出所有符合条件的路径及文件；  
 
 [返回目录](#目录)
 
 
-
 ## <span id="04命令行展开">04命令行展开</span>
+1）~ ：展开为用户的主目录；
+~~~shell
+[root@sslinux log]# pwd
+/var/log
+[root@sslinux log]# cd ~
+[root@sslinux ~]# pwd
+/root
+~~~
+2）~USERNAME ： 展开为指定用户的主目录；
+~~~shell
+[root@sslinux ~]# pwd
+/root
+[root@sslinux ~]# cd ~sslinux
+[root@sslinux sslinux]# pwd
+/home/sslinux
+~~~
+
+3） {} ： 可承载一个以逗号分隔的列表，并将其展开为多个路径；
+~~~shell
+[root@localhost test]# ls
+[root@localhost test]# mkdir -pv ./tmp/{a,b}/shell
+mkdir: created directory `./tmp'
+mkdir: created directory `./tmp/a'
+mkdir: created directory `./tmp/a/shell'
+mkdir: created directory `./tmp/b'
+mkdir: created directory `./tmp/b/shell'
+[root@localhost test]# mkdir -pv ./tmp/{tom,johnson}/hi
+[root@localhost test]# tree .
+
+└── tmp
+ ├── a
+ │ └── shell
+ ├── b
+ │ └── shell
+ ├── johnson
+ │ └── hi
+ └── tom
+ └── hi
+9 directories, 0 files
+~~~
+
 [返回目录](#目录)
 
 ## <span id="05命令的执行状态结果">05命令的执行状态结果</span>
+表示命令是否成功执行；
+
+bash使用特殊变量$?保存最近一条命令的执行状态结果；
+
+- 环境变量$?的取值：
+
+     值： 0 ： 成功；
+
+     1-255：失败，1,127,255为系统保留；
+
+-  程序执行有两类结果： 
+
+     程序的返回值；程序自身执行的输出结果；
+
+     程序的执行状态结果；$?
+
+~~~shell
+[root@localhost test]# ls /etc/sysconfig/
+
+[root@localhost test]# echo $?
+
+0    #程序的执行状态结果；执行成功；
+
+[root@localhost test]# ls /etc/sysconfig/NNNN
+
+ls: cannot access /etc/sysconfig/NNNN: No such file or directory    #程序自身的执行结果；
+
+[root@localhost test]# echo $?
+
+2    #执行失败；
+
+~~~
+
+
+
 [返回目录](#目录)
 
 ## <span id="06命令别名">06命令别名</span>
