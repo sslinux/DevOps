@@ -622,18 +622,54 @@ sslinux
 
  4、特殊变量：$?, $0, $*, $@, $#
 
-     $? : 上一条命令的执行状态结果；
+         $? : 上一条命令的执行状态结果；
+         $0 : 命令本身
+         $* : 传递给脚本的所有参数；
+         $@ : 传递给脚本的所有参数；
+         $# : 传递给脚本的参数的个数；
 
-     $0 : 命令本身
+## 本地变量：
+1、变量赋值：name='VALUE'
 
-     $* : 传递给脚本的所有参数；
+    a) 在赋值时，VALUE可以使用以下引用：
 
-     $@ : 传递给脚本的所有参数；
+       【1】可以是直接字符串；name="username"
+       【2】变量引用：name=“$username”
+       【3】命令引用：name=`COMMAND`,name=$(COMMAND)
 
-     $# : 传递给脚本的参数的个数；
+2、 变量引用：${name},花括号可省略：$name
 
+    引号引用：
 
+         " " ： 弱引用，其中的变量引用会被替换为变量值；
 
+         ' ' ： 强引用，其中的变量不会被替换为变量值，而保持原字符串；
+
+查看所有已定义的变量： #set
+
+销毁变量： # unset name
+
+## 环境变量：
+    1、变量声明、赋值：
+        export name=VALUE
+        declare -x name=VALUE
+    2、变量引用：
+        $name
+        ${name}
+    3、显示所有环境变量：
+        export
+        env
+        printenv
+    4、销毁环境变量：
+        unset name
+- Bash中内建的环境变量：
+    PATH，SHELL，UID，HISTSIZE, HOME, PWD, OLD, HISTFILE, PS1
+
+- 只读变量： 相当于常量，变量值不可变，不能再进行赋值运算；
+
+声明只读变量的格式：
+    readonly name
+    declare –r name   
 
 
 
