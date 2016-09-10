@@ -689,10 +689,41 @@ sslinux
 [返回目录](#目录)
 
 ## <span id="12bash的配置文件">12bash的配置文件</span>
+按生效范围划分，存在两类配置文件：
+
+1、全局配置：
+
+    /etc/profile
+        /etc/profile.d/*.sh
+    /etc/bashrc
+2、用户配置：
+   
+    ~/.bash_profile
+    ~/.bashrc
+
+按功能划分：也存在两类；
+
+1、profile类：为交互式登录的shell提供配置；
+
+    交互式登录shell：直接通过终端输入账号密码登录；
+
+    使用“su - UserName”或“su -l UserName”切换的用户
 
 
+~~~shell
+    作用于全局：/etc/profile，/etc/profile.d/*.sh
 
+    作用于个人：~/.bash_profile
 
+~~~
+
+- 功用：
+
+（1）	用于定义环境变量；
+
+（2）	运行命令或脚本；
+配置文件加载顺序：(相同参数，后加载的生效)
+/etc/profile --> /etc/profile.d/*.sh --> ~/.bash_profile --> ~/.bashrc --> /etc/bashrc
 
 [返回目录](#目录)
 
