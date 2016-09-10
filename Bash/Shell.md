@@ -185,11 +185,15 @@ ls: cannot access /etc/sysconfig/NNNN: No such file or directory    #程序自�
 
 ~~~
 
-
-
 [返回目录](#目录)
 
 ## <span id="06命令别名">06命令别名</span>
+通过alias命令实现：
+
+a、alias ： 显示当前shell进程所有可用的命令别名；
+b、定义别名，格式为： alias NAME='VALUE'  定义别名NAME，其执行相当于执行命令VALUE，VALUE中可包含命令、选项以及参数；仅当前会话有效，不建议使用；
+c、通过修改配置文件定义命令别名：
+    
 [返回目录](#目录)
 
 ## <span id="07通配符glob">07通配符glob</span>
