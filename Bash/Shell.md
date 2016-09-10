@@ -369,6 +369,141 @@ Example：
 [返回目录](#目录)
 
 ## <span id="09bash的IO重定向及管道">09bash的io重定向及管道</span>
+打开的文件都有一个fd：file descriptor(文件描述符)
+
+    标准输入：keyboard，0
+
+    标准输出：monitor，1
+
+    标准错误输出：monitor，2
+
+###I/O重定向：改变标准位置；
+
+- 输出重定向：
+
+     COMMAND > NEW_POS 覆盖重定向，目标文件中的原有内容会被清除；
+
+     COMMAND >> NEW_POS 追加重定向，新内容会被追加到目标文件尾部；
+
+- Note：
+
+    为了在输出重定向时防止覆盖原有文件，建议使用以下设置：
+
+    set –C ： 禁止将内容覆盖输出(>)至已有文件中,追加输出不受影响；
+
+    此时，若确定要将重定向的内容覆盖原有文件，可使用 >| 强制覆盖；
+
+- Example:
+~~~shell
+[root@localhost test1]# echo "It's dangerous" > ./result.txt #输出到文件；
+[root@localhost test1]# cat result.txt
+It's dangerous
+[root@localhost test1]# set –C #禁止将内容覆盖输出到已有文件；
+[root@localhost test1]# echo "It's very dangerous" > ./result.txt
+-bash: ./result.txt: cannot overwrite existing file #提示不能覆盖已存在文件；
+[root@localhost test1]# echo "It's very dangerous" >| ./result.txt #强制覆盖
+[root@localhost test1]#
+[root@localhost test1]# set +C #取消禁止覆盖输出到已有文件；
+[root@localhost test1]# echo "It's very dangerous" > ./result.txt
+[root@localhost test1]#
+~~~
+
+- 错误输出：
+
+     2> : 覆盖重定向错误输出数据流；
+
+     2>> ：追加重定向错误输出数据流；
+~~~shell
+[root@localhost test1]# lss -l /etc/ 2> ./error.txt
+[root@localhost test1]# cat error.txt
+-bash: lss: command not found
+[root@localhost test1]# cat /etc/passwd.error 2>> ./error.txt
+[root@localhost test1]# cat error.txt
+-bash: lss: command not found
+cat: /etc/passwd.error: No such file or directory
+~~~
+
+将标准输出和标准错误输出各自重定向至不同位置：
+
+     COMMAND > /path/to/file.out 2> /path/to/error.out
+- Example:
+```
+# cat /etc/passwd > ./file.out 2> ./error.out
+```
+- 合并输出：
+
+     合并标准输出和错误输出为同一个数据流进行重定向；
+
+         &> 合并覆盖重定向；
+
+         &>> 合并追加重定向；
+
+    格式为：
+
+         COMMAND > /path/to/file.out 2> &1
+
+         COMMAND >> /path/to/file.out 2>> &1
+
+    Example:
+~~~shell
+    [root@localhost test1]# ls -l /etc/ > ./file.out 2>&1
+    [root@localhost test1]# ls -l /etc/ &> file.out
+    [root@localhost test1]# ls -l /etcc/ &> file.out
+    [root@localhost test1]# cat file.out
+    ls: cannot access /etcc/: No such file or directory
+~~~
+
+- 输入重定向： <
+~~~shell
+     HERE Documentation：<<
+
+     # cat << EOF
+
+     # cat > /path/to/somefile << EOF
+~~~
+
+Example: 输入重定向，输入完成后显示内容到标准输出上；
+~~~shell
+[root@localhost test1]# cat << EOF
+> my name is kalaguiyin.
+> I'm a tibetan.
+> I come from Sichuan Provence.
+> EOF
+my name is kalaguiyin.
+I'm a tibetan.
+I come from Sichuan Provence.
+~~~
+
+Example：从标准输入读取输入并重定向到文件。
+~~~shell
+[root@localhost test1]# cat > hello.txt << EOF 
+> this is a test file.
+> 中华人民共和国。
+> EOF
+[root@localhost test1]# cat hello.txt
+this is a test file.
+中华人民共和国。
+~~~
+
+- 管道：
+
+     COMMAND1 | COMMAND2 | COMMAND3 | …..
+
+     作用：前一个命令的执行结果将作为后一个命令执行的参数；
+
+     Note:
+
+            最后一个命令会在当前shell进程的子shell进程中执行；
+~~~shell
+[root@sslinux]# cat /etc/passwd | sort -t: -k3 -n | cut -d: -f1
+root
+bin
+daemon
+adm
+lp
+polkitd
+sslinux
+~~~
 [返回目录](#目录)
 
 ## <span id="10shell编程环境">10shell编程环境</span>
