@@ -240,7 +240,19 @@ alias mv='mv -i'
 
 ## <span id="07通配符glob">07通配符glob</span>
 
+Bash中用于文件名"通配"
+- 通配符： *,?,[]
 
+    1) * 任意长度的任意字符；
+
+        a * b 
+~~~shell
+[root@sslinux sslinux]# ls -ld /etc/au*
+drwxr-x---. 3 root root 41 Sep 3 22:05 /etc/audisp
+drwxr-x---. 3 root root 79 Sep 3 22:09 /etc/audit
+~~~
+
+       
 
 
 [返回目录](#目录)
