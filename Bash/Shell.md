@@ -188,23 +188,61 @@ ls: cannot access /etc/sysconfig/NNNN: No such file or directory    #程序自�
 [返回目录](#目录)
 
 ## <span id="06命令别名">06命令别名</span>
-通过alias命令实现：
+- 通过alias命令实现：
 
 a、alias ： 显示当前shell进程所有可用的命令别名；
-b、定义别名，格式为： alias NAME='VALUE'  定义别名NAME，其执行相当于执行命令VALUE，VALUE中可包含命令、选项以及参数；仅当前会话有效，不建议使用；
+
+b、定义别名，格式为： alias NAME='VALUE'  
+
+定义别名NAME，其执行相当于执行命令VALUE，VALUE中可包含命令、选项以及参数；仅当前会话有效，不建议使用；
+
 c、通过修改配置文件定义命令别名：
+
     当前用户：~/.bashrc
     全局用户：/etc/bashrc
+
 - Bash进程重新读取配置文件：
-    source /path/to/config_file
+~~~shell
+    source /path/to/config_file 
+
     . /path/to/config_file
+~~~
 - 撤销别名： unalias
+```
     unalias [-a] name [name...]
-Note:
+```
+- Note:
+
     对于定义了别名的命令，要使用原命令，可通过\COMMAND的方式使用；
+
+- Example:
+
+~~~shell
+[root@sslinux sslinux]# alias
+alias cp='cp -i'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+alias l.='ls -d .* --color=auto'
+alias ll='ls -l --color=auto'
+alias ls='ls --color=auto'
+alias mv='mv -i'
+alias rm='rm -i'
+alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
+[root@sslinux sslinux]# grep alias /root/.bashrc
+# User specific aliases and functions
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+~~~
+
 [返回目录](#目录)
 
 ## <span id="07通配符glob">07通配符glob</span>
+
+
+
+
 [返回目录](#目录)
 
 ## <span id="08bash快捷键">08bash快捷键</span>
