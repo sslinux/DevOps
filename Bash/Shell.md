@@ -252,8 +252,54 @@ drwxr-x---. 3 root root 41 Sep 3 22:05 /etc/audisp
 drwxr-x---. 3 root root 79 Sep 3 22:09 /etc/audit
 ~~~
 
-       
+    2)  ? 任意单个字符；
+        
+        a?b
+~~~shell
+[root@sslinux sslinux]# ls -ld /etc/*d?t
+drwxr-x---. 3 root root 79 Sep 3 22:09 /etc/audit
+~~~       
 
+    3) []   匹配指定范围内的任意单个字符；
+
+        [0-9]    [a-z]   不区分大小写；
+        [admin]    可以是区间形式的，也可以是离散形式的；
+~~~shell
+[root@sslinux sslinux]# ls -ld /etc/[ab]*
+drwxr-xr-x. 2 root root 4096 Sep 3 22:05 /etc/alternatives
+drwxr-xr-x. 2 root root 33 Sep 3 22:04 /etc/avahi
+drwxr-xr-x. 2 root root 33 Sep 3 22:04 /etc/bash_completion.d
+-rw-r--r--. 1 root root 2835 Oct 29 2014 /etc/bashrc
+drwxr-xr-x. 2 root root 6 Mar 6 2015 /etc/binfmt.d
+~~~
+    4) [^] 匹配指定范围以外的任意单个字符；
+```
+        [^0-9] : 单个非数字的任意字符；
+```
+- 专用字符结合：(表示一类字符中的单个)
+
+[:digit:] 任意单个数字，相当于[0-9];
+
+[:lower:] 任意单个小写字母；
+
+[:upper:] 任意单个大写字母；
+
+[:alpha:] 任意单个大小写字母；
+
+[:alnum:] 任意单个数字或字母；
+
+[:space:] 任意空白字符；
+
+[:punct:] 任意单个特殊字符；
+
+- Note：
+
+在使用[]应用专用字符集合时，外层也需要嵌套[]。
+
+Example：
+~~~shell
+# ls -d /etc/*[[:digit:]]*[[:lower:]]
+~~~
 
 [返回目录](#目录)
 
