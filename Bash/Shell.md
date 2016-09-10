@@ -719,11 +719,46 @@ sslinux
 
 - 功用：
 
-（1）	用于定义环境变量；
+    （1）用于定义环境变量；
 
-（2）	运行命令或脚本；
-配置文件加载顺序：(相同参数，后加载的生效)
-/etc/profile --> /etc/profile.d/*.sh --> ~/.bash_profile --> ~/.bashrc --> /etc/bashrc
+    （2）运行命令或脚本；
+
+- 配置文件加载顺序：(相同参数，后加载的生效)
+
+         /etc/profile --> 
+         /etc/profile.d/*.sh --> 
+         ~/.bash_profile --> 
+         ~/.bashrc --> 
+         /etc/bashrc
+
+2、bashrc类：为非交互式登录的shell提供配置：
+
+非交互式Shell：
+
+         su UserName 
+         图形界面下打开的终端
+         执行脚本
+~~~shell
+    作用于全局：/etc/bashrc
+    作用于个人：~/.bashrc
+~~~
+
+- 功用：
+    （1）	定义命令别名；
+    （2）	定义本地变量；
+
+
+- 配置文件加载顺序：（相同参数，后加载的生效）
+
+	~/.bashrc --> /etc/bashrc --> /etc/profile.d/*.sh
+
+- 编辑配置文件后让定义的新配置生效的方式：
+
+		(1) 重新启动shell进程；
+		(2) 使用source或.命令进程；
+
+
+
 
 [返回目录](#目录)
 
