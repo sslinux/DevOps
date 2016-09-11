@@ -1660,8 +1660,9 @@ fi
 
 ~~~
 
-### <span id="case语句">条件判断case语句</span>
 
+### <span id="case语句">case语句</span>
+```
 case 变量引用 in
 PAT1)
 		分支1
@@ -1674,13 +1675,48 @@ PAT2）
 		默认分支
 		；；
 esac
+```
 
 case支持glob风格的通配符：
-*: 任意长度任意字符；
-?: 任意单个字符；
-[]：指定范围内的任意单个字符；
-	a|b: a或b
+
+        *: 任意长度任意字符；
+        ?: 任意单个字符；
+        []：指定范围内的任意单个字符；
+	    a|b: a或b
+
 Example：使用case语句改写前一个练习：
+~~~shell
+#!/bin/bash
+#
+cat << EOF
+cpu) show cpu information;
+mem) show memory information;
+disk) show disk information;
+quit) quit
+============================
+EOF
+read -p "Enter a option: " option
+while [ "$option" != 'cpu' -a "$option" != 'mem' -a "$option" != 'disk' -a "$option" != 'quit' ]; do
+    read -p "Wrong option, Enter again: " option
+done
+
+case "$option" in
+cpu)
+	lscpu 
+	;;
+mem)
+	cat /proc/meminfo
+	;;
+disk)
+	fdisk -l
+	;;
+*)
+	echo "Quit..."
+	exit 0
+	;;
+esac
+
+~~~
 
 [返回目录](#目录)
 
