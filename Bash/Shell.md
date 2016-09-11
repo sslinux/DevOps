@@ -978,6 +978,41 @@ UUID=3d04d82b-c52b-4184-8d64-1826db6e2eac /boot xfs defaults 0 0
 [返回目录](#目录)
 
 ## <span id="15bash脚本编程之用户交互">15bash脚本编程之用户交互</span>
+
+- read命令：
+
+    read [option]… [name….]
+
+         -p “prompt” 提示符；
+
+         -t TIMEOUT 用户输入超时时间；
+
+- 检测脚本中的语法错误：
+
+         bash –n /path/to/some_script
+
+- 调试执行，查看执行流程：
+
+         bash –x /path/to/some_script
+
+- Example:
+
+~~~shell
+#!/bin/bash
+#
+#Description: Test read command's grammer.
+read -t 50 -p "Enter a disk special file:" diskfile #将用户输入的内容赋值给diskfile变量
+[ -z "$diskfile" ] && echo "Fool" && exit 1
+#判断diskfile的值是否为空，如果为空则输出，并退出；
+if fdisk -l | grep "^Disk $diskfile" &> /dev/null;then
+ fdisk -l $diskfile
+else
+ echo "Wrong disk special file."
+ exit 2
+fi
+~~~
+
+
 [返回目录](#目录)
 
 
