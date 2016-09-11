@@ -1129,6 +1129,7 @@ fi
     依次将列表中的元素赋值给“变量”；每次赋值后即执行一次循环体；直到列表中的元素耗尽，循环结束；
 
 - EXAMPLE：添加10个用户，用户名为：user1-user10：密码同用户名；
+
 ~~~shell
 #!/bin/bash
 #
@@ -1151,8 +1152,117 @@ for i in {1..10};do
 		fi
 	fi
 done
-
 ~~~
+
+- 列表生成方式：
+
+    (1) 直接给出列表 for i in {kalaguiyin johnson rechard}
+
+    (2) 整数列表
+
+        (a) {start..end}
+
+        (b) $(seq [start [step]] end)
+
+    (3) 返回列表的命令
+
+        $(COMMAND) --> 如：$(ls /var)
+
+    (4) glob
+
+        /etc/rc.d/rc3.d/K*
+
+    (5) 变量引用
+
+        $@ , $*  -->所有向脚本传递的参数；
+
+- Example：判断某路径下所有文件的类型：
+
+~~~shell
+#!/bin/bash
+#
+#for循环使用命令返回列表；
+
+for file in $(ls /var);do #使用命令生成列表；
+ if [ -f /var/$file ];then
+     echo "Common file."
+ elif [ -L /var/$file ];then
+     echo "Symbolic file."
+ elif [ -d /var/$file ];then
+     echo "Directory."
+ else
+     echo "Other type"
+ fi
+done
+~~~
+
+- Example：使用for循环统计关于tcp端口监听状态；
+
+~~~shell
+#!/bin/bash
+#
+#使用for循环过滤netstat命令中关于tcp的信息；
+declare -i estab=0
+declare -i listen=0
+declare -i other=0
+
+for state in $( netstat -tan | grep "^tcp\>" | awk '{print $NF}');do
+
+ if [ "$state" == 'ESTABLISHED' ];then
+     let estab++
+ elif [ "$state" == 'LISTEN' ];then
+     let listen++
+ else
+     let other++
+ fi
+done
+
+echo "ESTABLISHED:$estab"
+echo "LISTEN:$listen"
+echo "Unknow:$other"
+~~~
+
+- Example: 通过ping命令探测192.168.0.1-254范围内的所有主机的在线状态；
+
+~~~shell
+#!/bin/bash
+#
+#通过ping命令探测192.168.0.1-254范围内的所有主机的在线状态；
+net='192.168.0'
+uphosts=0
+donwhosts=0
+
+for i in {1..254};do
+ ping -c 1 -w 1 ${net}.${i} &> /dev/null
+ if [ $? -eq 0 ];then
+     echo "${net}.${i} is up."
+     let uphosts++
+ else
+     echo "${net}.${i} is down."
+     let downhosts++
+ fi
+done
+
+echo "Up hosts:$uphosts."
+echo "Down hosts:$downhosts."
+~~~
+
+### <span id="while循环">while循环</span>
+语法：
+```
+ while CONDITION；do
+     循环体
+ done
+```
+```
+CONDITION：循环控制条件；进入循环之前，先做一次判断；
+每一次循环之后会再次做判断；条件为“true”，则执行一次循环；
+直到条件测试状态为“false”终止循环；
+
+因此：CONDTION一般应该有循环控制变量；
+而此变量的值会在循环体不断地被修正，直到最终条件为false，结束循环。
+```
+
 
 [返回目录](#目录)
 
