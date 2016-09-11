@@ -1011,12 +1011,149 @@ else
  exit 2
 fi
 ~~~
-
-
 [返回目录](#目录)
 
-
 ## <span id="16流程控制">16流程控制</span>
+
+### <span id="if语句">if语句</span>
+
+```
+if语句：
+     CONDITION：
+     bash命令：
+```
+
+ 用命令的执行状态结果：
+
+     成功：true，即执行状态结果值为0时；
+
+     失败：false，即执行状态结果为1-255时；
+
+ 成功或失败的定义：取决于用到的命令；
+
+
+- 单分支if：
+```
+ if CONDITION；then
+     if-true(条件为真时的执行语句集合)
+ fi
+```
+### Example:
+~~~shell
+#!/bin/bash
+#if单分支语句测试；
+if [ $UID -eq 0 ];then
+     echo "It's amdinistrator."
+fi
+~~~
+
+-  双分支if： 
+```
+ if CONDITION;then
+     if-true
+ else
+     if-false
+ fi
+```
+### Example:
+
+~~~shell
+#!/bin/bash
+#
+#if双分支语句测试；
+if [ $UID -eq 0 ];then
+ echo "It's administrator."
+else
+ echo "It's Comman User."
+fi
+~~~
+
+- 多分支if：
+```
+ if CONDITION1；then
+     if-true
+ elif CONDITION2;then
+     if-true
+ elif CONDITION3;then
+     if-true
+ ….
+ else
+     all-false
+ fi
+```
+逐条件进行判断，第一次遇为“真”条件时，执行其分支，而后结束；
+
+- Exmaple:用户键入文件路径，脚本来判断文件类型；
+
+~~~shell
+#!/bin/bash
+#
+#if语句多分支语句；
+read -t 20 -p "Enter a file path:" filename
+
+if [ -z "$filename" ];then #判断变量是否为空；
+ echo "Usage:Enter a file path."
+ exit 2
+fi
+
+if [ ! -e $filename ];then #判断用户输入的文件是否存在；
+ echo "No such file."
+ exit 3
+fi
+
+if [ -f $filename ];then #判断是否为普通文件；
+ echo "A common file."
+elif [ -d $filename ];then #判断是否为目录；
+ echo "A directory"
+elif [ -L $filename ];then #判断是否为链接文件；
+ echo "A symbolic file."
+else
+ echo "Other type."
+fi
+~~~
+
+### <span id="for循环">for循环</span>
+循环体：要执行的代码，可能要执行n遍；
+
+ 循环需具备进入循环的条件和退出循环的条件；
+
+- for循环：
+```
+ for 变量名 in 列表；do
+     循环体
+ done
+```
+
+- 执行机制：
+
+    依次将列表中的元素赋值给“变量”；每次赋值后即执行一次循环体；直到列表中的元素耗尽，循环结束；
+
+- EXAMPLE：添加10个用户，用户名为：user1-user10：密码同用户名；
+~~~shell
+#!/bin/bash
+#
+#for循环，使用列表；
+#添加10个用户，user1-user10
+
+if [ ! $UID -eq 0 ];then #判断执行脚本的是否为root用户，若不是则直接退出；
+	echo "Only root can use this script."
+	exit 1
+fi
+
+for i in {1..10};do
+	if id user$i &> /dev/null;then	#判断用户是否已经存在；
+		echo "user$i exists"
+	else
+		useradd user$i
+		if [ $? -eq 0 ];then   #判断前一条命令是否执行成功；
+			echo "user$i" | passwd --stdin user$i &> /dev/null
+			#passwd命令从标准输入获得命令，即管道前命令的执行结果；
+		fi
+	fi
+done
+
+~~~
+
 [返回目录](#目录)
 
 
