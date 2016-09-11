@@ -1263,6 +1263,208 @@ CONDITION：循环控制条件；进入循环之前，先做一次判断；
 而此变量的值会在循环体不断地被修正，直到最终条件为false，结束循环。
 ```
 
+- Example：用while求100以内所有正整数之和：
+
+~~~shell
+#!/bin/bash
+#使用while求100以内正整数之和；
+declare -i sum=0
+declare -i i=1
+while [ $i -le 100 ];do
+ let sum+=$i
+ let i++
+done
+echo $i
+echo "Summary:$sum."
+~~~
+
+- Example：用while添加10个用户，user1-user10；
+
+~~~shell
+#!/bin/bash
+#
+#使用while循环添加10个用户；
+declare -i i=1
+declare -i users=0
+
+while [ $i -le 10 ];do
+ if ! id user$i &> /dev/null;then
+     useradd user$i
+     echo "Add user: user$i"
+     let users++
+ fi
+ let i++
+done
+echo "Add $users users."
+~~~
+
+- Example：使用while循环ping指定网络内的所有主机；
+
+~~~shell
+#!/bin/bash
+#
+#使用while循环ping指定网段内的所有主机；
+declare -i i=1
+declare -i uphosts=0
+declare -i downhosts=0
+net='172.16.250'
+
+while [ $i -le 254 ];do
+ if ping -c 1 -w 1 ${net}.${i} &> /dev/null;then
+     echo "${net}.$i is up."
+     let uphosts++
+ else
+     echo "${net}.$i is down."
+     let downhosts++
+ fi
+ let i++
+done
+
+echo "Up hosts:$uphosts."
+echo "Down hosts:$downhosts."
+~~~
+
+- Example：使用for循环打印九九乘法表；
+
+~~~shell
+#!/bin/bash
+#使用for循环打印九九乘法表；
+
+for j in {1..9};do
+ for i in $(seq 1 $j);do
+     echo -e -n "${i}X${j}=$[$i*$j]\t"
+ done
+ echo
+done
+~~~
+
+- Example：使用while循环打印九九乘法表；
+
+~~~shell
+#!/bin/bash
+#
+declare -i i=1
+declare -i j=1
+
+while [ $j -le 9 ];do
+ while [ $i -le $j ];do
+     echo -e -n "${i}X${j}=$[$i*$j]\t"
+     let i++
+ done
+
+ echo
+ let i=1
+ let j++
+done
+~~~
+
+- Example：利用RANDOM生成10个随机数字，输出这10个数字，并显示其中的最大者和最小者；
+
+~~~shell
+#!/bin/bash
+#
+#利用RANDOM生成10个随机数，输出，并求最大值和最小值；
+declare -i max=0
+declare -i min=0
+declare -i i=1
+
+while [ $i -le 9 ];do
+	rand=$RANDOM
+	echo $rand
+	
+	if [ $i -eq 1 ];then
+		max=$rand
+		min=$rand
+	fi
+
+	if [ $rand -gt $max ];then
+		max=$rand
+	fi
+	if [ $rand -lt $min ];then
+		min=$rand
+	fi
+	let i++
+done
+
+echo "MAX:$max."
+echo "MIN:$min."
+
+~~~
+
+### <span id="until循环">until循环</span>
+```
+until CONDITION；do
+    循环体
+done
+#进入条件：false
+#退出条件：true
+
+```
+
+```
+while CONDITION；do
+    循环体
+done
+#进入条件：CONDITION为true；
+#退出条件：CONDITION为false；
+```
+
+- Example：用until求100以内所有正整数之和：
+
+~~~shell
+#!/bin/bash
+#
+#利用until循环求100以内所有正整数之和；
+declare -i i=1
+declare -i sum=0
+
+until [ $i -gt 100 ];do
+	let sum+=$i
+	let i++
+done
+echo "100以内所有正整数之和为："
+echo "Sum:$sum"
+
+~~~
+
+- Example：用until循环打印九九乘法表；
+
+~~~shell
+#!/bin/bash
+#
+#使用until循环打印九九乘法表；
+
+declare -i j=1
+declare -i i=1
+
+until [ $j -gt 9 ];do
+	until [ $i -gt $j ];do
+		echo -n -e "${i}X${j}=$[$i*$j]\t"
+		let i++
+	done
+	echo
+	let i=1
+	let j++
+done
+
+~~~
+
+### <span id="循环控制语句">循环控制语句</span>
+循环控制语句，用于循环体中；
+- 1.continue [N] : 提前结束第N层的本轮循环，而直接进入下一轮判断；
+```
+
+while CONDITION1；do
+		COMMAND1
+		…..
+		if CONDITION2;then
+			continue
+		fi
+		COMMANDn
+		….
+done
+
+```
 
 [返回目录](#目录)
 
