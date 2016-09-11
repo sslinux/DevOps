@@ -1619,13 +1619,68 @@ done
 
 ### 练习：写一个脚本，完成以下任务：
 (1)	显示一个如下菜单：
+```
     cpu) show cpu information;
     mem) show memory information;
     disk) show disk information;
     quit) quit
+```
 (2)	提示用户选择选项；
+
 (3)	显示用户选择的内容；
 
+~~~shell
+#!/bin/bash
+#
+#根据用户的选择，给用户显示相应的硬件信息；
+
+cat << EOF
+cpu) show cpu information;
+mem) show memory information;
+disk) show disk information;
+quit) quit
+#####################################
+EOF
+
+read -p "Enter a option:" option
+while [ "$option" != 'cpu' -a "$option" != 'mem' -a "$option" != 'disk' -a "$option" != 'quit' ];do
+	read -p "Wrong option,please Enter again:" option
+done
+
+if [ "$option" == 'cpu' ];then
+	lscpu
+elif [ "$option" == 'mem' ];then
+	cat /proc/meminfo
+elif [ "$option" == 'disk' ];then
+	fdisk -l
+else
+	echo "Quit"
+	exit 0
+fi
+
+~~~
+
+### <span id="case语句">条件判断case语句</span>
+
+case 变量引用 in
+PAT1)
+		分支1
+		；；
+PAT2）
+		分支2
+		；；
+….
+*)
+		默认分支
+		；；
+esac
+
+case支持glob风格的通配符：
+*: 任意长度任意字符；
+?: 任意单个字符；
+[]：指定范围内的任意单个字符；
+	a|b: a或b
+Example：使用case语句改写前一个练习：
 
 [返回目录](#目录)
 
