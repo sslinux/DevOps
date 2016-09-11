@@ -2117,6 +2117,153 @@ echo "Lines:$lines."
 
 ## <span id="19bash的字符串处理工具">19bash的字符串处理工具</span>
 
+### 字符串切片：
+- ${var:offset:number}
+
+	取字符串最右侧的几个字符：${var: -lengh}
+
+	Note：冒号后面必须有一空白字符；
+
+### 基于模式取子串：
+- ${var#*word}：其中word可以是指定的任意字符；
+
+	功能：自左而右，查找var变量所存储的字符串中，第一次出现的word, 删除字符串开头至第一次出现word字符之间的所有字符；
+
+- ${var##*word}：其中word可以是指定的任意字符；
+
+	功能：自左而右，查找var变量所存储的字符串中出现的word，删除字符串开头至最后一次由word指定的字符之间的所有内容；
+
+~~~shell
+#bash基于模式取子串；
+[root@kalaguiyin scripts]# file="/var/log/messages"
+[root@kalaguiyin scripts]# echo ${file#*/}
+var/log/messages
+[root@kalaguiyin scripts]# echo ${file##*/}
+messages
+~~~	
+
+- ${var%word*}：其中word可以是指定的任意字符；
+
+	功能：自右而左，查找var变量所存储的字符串中，第一次出现的word, 删除字符串最后一个字符向左至第一次出现word字符之间的所有字符；
+
+- ${var%%word*}：其中word可以是指定的任意字符；
+
+	功能：自右而左，查找var变量所存储的字符串中出现的word,，只不过删除字符串最右侧的字符向左至最后一次出现word字符之间的所有字符；
+
+~~~shell
+[root@kalaguiyin scripts]# file="/var/log/messages" #从右至左，匹配‘/ ’
+[root@kalaguiyin scripts]# echo ${file%/*}
+/var/log
+[root@kalaguiyin scripts]# echo ${file%%/*}    # 双%匹配并删除后为空；
+
+[root@kalaguiyin scripts]#
+~~~
+
+- Example：url=http://www.google.com:80,分别取出协议和端口；
+~~~shell
+[root@kalaguiyin scripts]# url=http://www.google.com:80
+[root@kalaguiyin scripts]# echo ${url##*:}    #取端口号
+80
+[root@kalaguiyin scripts]# echo ${url%%:*}   #取协议
+http
+[root@kalaguiyin scripts]#
+~~~
+
+### 查找替换：
+	${var/pattern/substi}：查找var所表示的字符串中，第一次被pattern所匹配到的字符串，以substi替换之；
+
+	${var//pattern/substi}: 查找var所表示的字符串中，所有能被pattern所匹配到的字符串，以substi替换之；
+
+	${var/#pattern/substi}：查找var所表示的字符串中，行首被pattern所匹配到的字符串，以substi替换之；
+
+	${var/%pattern/substi}：查找var所表示的字符串中，行尾被pattern所匹配到的字符串，以substi替换之；
+
+~~~shell
+[root@kalaguiyin scripts]# var=$(head -n 1 /etc/passwd)
+[root@kalaguiyin scripts]# echo $var
+root x 0 0 root /root /bin/bash
+[root@kalaguiyin scripts]# echo ${var/root/ROOT}  #替换第一次匹配到的root为ROOT
+ROOT x 0 0 root /root /bin/bash
+[root@kalaguiyin scripts]# echo ${var//root/ROOT}  #替换所有匹配到的root为ROOT
+ROOT x 0 0 ROOT /ROOT /bin/bash
+~~~
+
+~~~shell
+[root@kalaguiyin scripts]# useradd bash -s /bin/bash
+[root@kalaguiyin scripts]# cat /etc/passwd | grep "^bash.*bash$"
+bash:x:1029:1029::/home/bash:/bin/bash
+[root@kalaguiyin scripts]# line=$(cat /etc/passwd | grep "^bash.*bash$")
+[root@kalaguiyin scripts]# echo $line
+bash x 1029 1029  /home/bash /bin/bash
+[root@kalaguiyin scripts]# echo ${line/#bash/BASH}	#替换行首的bash为BASH
+BASH x 1029 1029  /home/bash /bin/bash
+[root@kalaguiyin scripts]# echo ${line/%bash/BASH}	#替换行尾的bash为BASH
+bash x 1029 1029  /home/bash /bin/BASH
+~~~
+
+### 查找并删除：
+	${var/pattern}：查找var所表示的字符串中，删除第一次被pattern所匹配到的字符串
+
+	${var//pattern}：查找var所表示的字符串中，删除所有被pattern所匹配到的字符串；
+
+	${var/#pattern}：查找var所表示的字符串中，删除行首被pattern所匹配到的字符串；
+
+	${var/%pattern}：查找var所表示的字符串中，删除行尾被pattern所匹配到的字符串；
+
+- Example：
+~~~shell
+[root@kalaguiyin scripts]# line=$(tail -n 1 /etc/passwd)
+[root@kalaguiyin scripts]# echo $line
+bash x 1029 1029  /home/bash /bin/bash
+[root@kalaguiyin scripts]# echo ${line/bash}  #查找并删除第一次匹配到的bash
+ x 1029 1029  /home/bash /bin/bash
+[root@kalaguiyin scripts]# echo ${line//bash}	#查找并删除所有匹配到的bash
+ x 1029 1029  /home/ /bin/
+[root@kalaguiyin scripts]# echo ${line/#bash}	#查找并删除匹配到的行首的bash
+ x 1029 1029  /home/bash /bin/bash
+[root@kalaguiyin scripts]# echo ${line/%bash}   #查找并删除匹配到的行尾bash
+bash x 1029 1029  /home/bash /bin/
+~~~
+
+### 字符大小写转换：
+	${var^^}：把var中的所有小写字母转换为大写；
+
+	${var,,}：把var中的所有大写字母转换为小写；
+
+- Example：
+
+~~~shell
+[root@kalaguiyin scripts]# line=$(tail -n 1 /etc/fstab)		#将文件最后一行的值赋值给变量
+[root@kalaguiyin scripts]# echo ${line^^}		#全部转换为大写后输出
+/DEV/MAPPER/CENTOS-SWAP SWAP                    SWAP    DEFAULTS        0 0
+[root@kalaguiyin scripts]# line=`echo ${line^^}`	#将转换为大写后的值在赋值给变量；
+[root@kalaguiyin scripts]# echo $line			#确认目前变量的值全为大写字母；
+/DEV/MAPPER/CENTOS-SWAP SWAP                    SWAP    DEFAULTS        0 0
+[root@kalaguiyin scripts]# echo ${line,,}		#全部转换为大写后输出；
+/dev/mapper/centos-swap swap                    swap    defaults        0 0
+~~~
+
+### 变量赋值：
+
+	${var:-value}：如果var为空或未设置，那么返回value；否则，则返回var的值；
+
+	${var:=value}：如果var为空或未设置，那么返回value，并将value赋值给var；否则，则返回var的值；
+
+- Example：
+
+~~~shell
+[root@kalaguiyin scripts]# echo $test		#变量值为空；
+
+[root@kalaguiyin scripts]# echo ${test:-helloworld}	#  :- 仅返回设定值，不修改；
+helloworld
+[root@kalaguiyin scripts]# echo $test      #变量的值依然为空；
+
+[root@kalaguiyin scripts]# echo ${test:=helloworld}   #  :=  返回设定值，并赋值给变量；
+helloworld
+[root@kalaguiyin scripts]# echo $test			# 变量值已修改；
+helloworld
+~~~
+
 
 
 
