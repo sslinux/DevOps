@@ -975,7 +975,6 @@ UUID=3d04d82b-c52b-4184-8d64-1826db6e2eac /boot xfs defaults 0 0
 # [ -f /bin/cat -a -x /bin/cat ] && cat /etc/fstab 
 #如果文件存在且有执行权限，就用它查看文件内容；
 ~~~
-
 [返回目录](#目录)
 
 ## <span id="15bash脚本编程之用户交互">15bash脚本编程之用户交互</span>
