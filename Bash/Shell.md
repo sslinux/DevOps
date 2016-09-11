@@ -1722,10 +1722,174 @@ esac
 [返回目录](#目录)
 
 ## <span id="17函数">17函数</span>
-函数的作用：
-过程式编程：为实现代码重用
- 模块化编程
- 结构化编程；
+	函数的作用：
+	过程式编程：为实现代码重用
+	 	模块化编程
+	 	结构化编程；
+
+- 语法一：
+```
+function f_name {
+	…函数体…..
+}
+```
+
+- 语法二：
+```
+f_name() {
+	…函数….
+}
+```
+
+- 函数调用：函数只有被调用才会执行：
+
+	调用：给定函数名
+
+		函数名出现的地方，会被自动替换为函数代码；
+
+- 函数的生命周期：被调用时创建，返回时终止；
+
+	return命令返回自定义状态结果；
+
+		0：成功
+
+		1-255：失败
+
+- Example：通过函数，创建10个用户；
+
+~~~shell
+#!/bin/bash
+#
+#通过调用函数添加10个用户；
+
+function adduser {
+	if id $username &> /dev/null;then
+		echo "$username exists."
+		return 1
+	else
+		useradd $username
+		[ $? -eq 0 ] && echo "Add $username finished." && return 0
+	fi
+}
+
+for i in {1..10};do
+	username=myuser$i
+	adduser
+done
+~~~
+
+- Example：编写一个服务脚本：
+
+~~~shell
+#!/bin/bash
+# chkconfig: - 88 12
+# description: test service script
+prog=$(basename $0)
+lockfile=/var/lock/subsys/$prog
+start() {
+	if [ -e $lockfile ];then
+		echo "$prog is already running."
+		return 0
+	else 
+		touch $lockfile
+		[ $? -eq 0 ] && echo "Starting $prog finished."
+	fi
+}
+stop() {
+	if [ -e $lockfile ];then
+		rm -f $lockfile && echo "Stop $prog ok."
+	else
+		echo "$prog is stopped yet."
+	fi
+}
+status() {
+	if [ -e $lockfile ];then
+		echo "$prog is running."
+	else
+		echo "$prog is stopped."
+	fi
+}
+usage() {
+	echo "Usage:$prog {start | stop | restart | status}"
+}
+if [ $# -lt 1 ];then
+	usage
+	exit 1
+fi
+
+case $1 in
+start)
+	start
+	;;
+stop)
+	stop
+	;;
+restart)
+	stop
+	start
+	;;
+status)
+	status
+	;;
+*)
+	usage
+esac
+~~~
+
+### 函数返回值：
+函数的执行结果返回值：
+	(1)	使用echo或print命令进行输出；
+	(2)	函数体中调用命令的执行结果；
+函数的退出状态码：
+	(1)	默认取决于函数体中执行的最后一条命令的退出状态码；
+	(2)	自定义退出状态码；
+		使用return关键字；
+
+函数可以接受参数：
+		传递参数给函数：调用函数时，在函数名后面以空白分隔给定参数列表即可；
+
+例如：“testfunc arg1 arg2 …”
+	在函数体当中，可使用$1,$2,….调用这些参数；还可以使用$@,$*,$#等特殊变量；
+
+~~~shell
+#!/bin/bash
+#
+#使用带参数的函数添加10个用户；
+
+function adduser {			#一个可接受参数的函数
+	if [ $# -lt 1 ];then
+		return 2   # 2: no arguments
+	fi
+	
+	if id $1 &> /dev/null;then
+		echo "$1 exists."
+		return 1;
+	else
+		useradd $1
+		[ $? -eq 0 ] && echo "Add $1 finished." && return 0
+	fi	
+}
+
+while true;do		#死循环，直到输入的值为quit是退出；
+	read -t 20 -p "Please input your username(quit to cancel):" username
+	if [ $username == "quit" ];then
+		echo "Quit."
+		exit 0
+	else
+		adduser $username
+	fi
+done
+~~~
+
+- 变量作用域：
+	本地变量：当前shell进程，为了执行脚本会启动专用的shell进程；因此，本地变量的作用范围是当前shell脚本程序文件；
+	局部变量：函数的生命周期：函数结束时变量被自动销毁；
+		如果函数中有局部变量，其名称同本地变量无关；
+
+在函数中定义局部变量的方法：
+	local NAME=VALUE
+
+函数递归：函数直接或间接调用自身；
 
 
 [返回目录](#目录)
