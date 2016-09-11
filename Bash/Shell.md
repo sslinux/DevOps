@@ -763,11 +763,98 @@ sslinux
 [返回目录](#目录)
 
 ## <span id="13bash中的算术运算符">13bash中的算术运算符</span>
++，-，*，/，%，**
 
+实现算术运算的方式：
 
+    (1) let var=算术表达式
+    (2) var=$[算术表达式]
+    (3) var=$((算术表达式))
+    (4) var=$(expr arg1 arg2 arg3...)
+乘法符号在有些场景中需要转义；
+
+- bash内建随机数生成器：$RANDOM
+
+- 增强型赋值：
+    +=，-=，*=，/=，%=
+
+    let varOPERvalue：
+
+        例如：letcount+=1
+- 自增，自减：
+
+    let var+=1
+
+        let var++
+
+    let var-=1
+
+        let var--
+
+- Example:
+~~~shell
+#!/bin/bash
+spaceline1=$(grep "^[[:space:]]*$" $1 | wc -l)
+spaceline2=$(grep "^[[:space:]]*$" $2 | wc -l)
+echo "The sum of space line:$[$spaceline1+$spaceline2]"
+~~~
 [返回目录](#目录)
 
 ## <span id="14bash条件测试">14bash条件测试</span>
+判断某需求是否满足，需要有测试机制来实现；
+
+- Note：专用的测试表达式需要由测试命令辅助完成测试过程；
+
+- 测试命令：
+
+ test EXPRESSION
+
+ [ EXPRESSION ]
+
+ [[ EXPRESSION ]]
+
+    Note: EXPRESSION前后必须有空白字符，否则报错；
+
+## Bash的测试类型：
+
+- 数值测试：
+
+ -gt : 是否大于； >
+
+ -ge：是否大于等于； >=
+
+ -eq：是否等于 ==
+
+ -ne：是否不能于 !=
+
+ -lt ：是否小于 <
+
+ -le ：是否小于等于； <=
+
+- 字符串测试：
+~~~shell
+
+     == : 是否等于；
+
+     >: 是否大于；
+
+     <: 是否小于；
+
+     != ： 是否不等于；
+
+     =~ ：左侧字符串是否能够被右侧的PATTERN所匹配；
+
+     - Note：此表达式一般用于[[ ]]中；
+
+-z “STRING” : 测试字符串是否为空，空则为真，不空则为假；
+
+-n “STRING” ：测试字符串是否不空，不空则为真，空则为假；
+~~~
+
+
+Note：用于字符串比较时的用到的操作数都应该使用引号；
+
+
 [返回目录](#目录)
 
 ## <span id="15bash脚本编程之用户交互">15bash脚本编程之用户交互</span>
