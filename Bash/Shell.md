@@ -832,6 +832,7 @@ echo "The sum of space line:$[$spaceline1+$spaceline2]"
  -le ：是否小于等于； <=
 
 - 字符串测试：
+
 ~~~shell
 
      == : 是否等于；
@@ -846,13 +847,111 @@ echo "The sum of space line:$[$spaceline1+$spaceline2]"
 
      - Note：此表达式一般用于[[ ]]中；
 
--z “STRING” : 测试字符串是否为空，空则为真，不空则为假；
+     -z “STRING” : 测试字符串是否为空，空则为真，不空则为假；
 
--n “STRING” ：测试字符串是否不空，不空则为真，空则为假；
+     -n “STRING” ：测试字符串是否不空，不空则为真，空则为假；
+~~~
+
+Note：在字符串比较时用到的操作数都应该使用引号；
+
+## 文件测试：
+
+- (a) 存在性测试：
+
+    -a FILE
+
+    -e FILE：文件存在性测试，存在为真，否则为假；
+
+- (b) 存在性及类别测试
+
+     -b FILE ：是否存在且为块设备文件；
+
+     -c FILE ：是否存在且为字符设备文件；
+
+     -d FILE ：是否存在且为目录文件；
+
+     -f FILE ：是否存在且为普通文件；
+
+     -h FILE 或 –L FILE：是否存在且为符号链接文件；
+
+     -p FILE：是否存在且为命名管道文件；
+
+     -S FILE ：是否存在且为套接字文件；
+
+- (c) 文件权限测试：
+
+     -r FILE：是否存在且可读
+
+     -w FILE: 是否存在且可写
+
+     -x FILE: 是否存在且可执行
+
+- (d) 文件特殊权限测试：
+
+     -g FILE：是否存在且拥有sgid权限；
+
+     -u FILE：是否存在且拥有suid权限；
+
+     -k FILE：是否存在且拥有sticky权限；
+
+-  (e) 文件大小测试：
+
+     -s FILE：是否存在且非空；
+
+- (f) 文件是否打开：
+
+     -t fd：fd表示文件描述符是否已经打开且与某终端相关
+
+     -N FILE：文件自从上一次被读取之后是否被修改过；
+
+     -O FILE：当前有效用户是否为文件属主；
+
+     -G FILE：当前有效用户是否为文件属组；
+
+- (g) 双目测试：
+
+    FILE1 –ef FILE2 ： FILE1与FILE2是否指向同一个设备上的相同inode；
+
+    FILE1 –nt FILE2 ：FILE是否新于FILE2；
+
+    FILE1 –ot FILE2 ：FILE1是否旧于FILE2；
+
+- (h) 组合测试条件：
+
+ 完成逻辑运算：
+
+     第一种方式：
+
+             COMMAND1 && COMMAND2
+
+             COMMAND1 || COMMAND2
+
+             !COMMAND
+
+         eg：[ -e FILE ] && [ -r FILE ] 文件是否存在且是否有读权限；
+
+
+     第二种方式：
+
+             EXPRESSION1 –a EXPRESSION2
+
+             EXPRESSION1 –o EXPRESSION2
+
+             !EXPRESSION
+
+     必须使用测试命令进行；
+
+- Example：
+~~~shell
+# [ -z "$hostName" -o "$hostName"=="localhost.localdomain" ] && hostname www.studyhard.com
+# -z判断hostName是否为空，-o表示或者，即：hostName为空或者值为localhot.localdomain的时候，使用hostname命令修改主机名；
+[root@localhost kalaguiyin]# hostname
+www.studyhard.com
 ~~~
 
 
-Note：用于字符串比较时的用到的操作数都应该使用引号；
+ 
+
 
 
 [返回目录](#目录)
