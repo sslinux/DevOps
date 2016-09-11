@@ -5,7 +5,6 @@
 ###*****************************Begin**********************************
 
 ## Linux基础:
-* [Bash特性及脚本编程](https://github.com/sslinux/DevOps/blob/master/Bash/Shell.md)
 * [Bash特性及脚本编程](Bash/Shell.md)
 
 ## 运维工具：
