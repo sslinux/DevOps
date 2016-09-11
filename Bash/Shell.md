@@ -1967,9 +1967,10 @@ fab 7
 	declare –A ARRAY_NAME : 关联数组；
 
 - 数组元素的赋值：
+
 	(1)	一次只赋值一个元素；
 
-	ARRAY_NAME[INDEX]=VALUE
+		ARRAY_NAME[INDEX]=VALUE
 
 ```
 	例如：
@@ -1991,7 +1992,7 @@ fab 7
 
 	注意：省略[INDEX]表示引用下标为0的元素；
 
--数组的长度(数组中元素的个数)：
+- 数组的长度(数组中元素的个数)：
 
 	${#ARRAY_NAME[*]}
 	${#ARRAY_NAME[@]}
