@@ -949,10 +949,32 @@ Note：在字符串比较时用到的操作数都应该使用引号；
 www.studyhard.com
 ~~~
 
+- Example:
 
+~~~shell
+[root@kalaguiyin ~]# [ -f /bin/cat -a -x /bin/cat ] && cat /etc/fstab
+#判断文件/bin/cat是否存在且是否有可执行权限，&&是短路与，如果前面执行结果为真则使用cat命令#查看文件；
+#
+# /etc/fstab
+# Created by anaconda on Fri Jul 3 03:08:29 2015
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/centos-root / xfs defaults 0 0
+UUID=3d04d82b-c52b-4184-8d64-1826db6e2eac /boot xfs defaults 0 0
+/dev/mapper/centos-home /home xfs defaults 0 0
+/dev/mapper/centos-swap swap swap defaults 0 0
+~~~
  
+- 快速查找选项定义的方法：
 
+ man bash --> /^[[:space:]]*-f
 
+~~~shell
+# [ -f /bin/cat -a -x /bin/cat ] && cat /etc/fstab 
+#如果文件存在且有执行权限，就用它查看文件内容；
+~~~
 
 [返回目录](#目录)
 
