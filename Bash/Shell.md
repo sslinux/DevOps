@@ -1573,13 +1573,58 @@ done < /etc/passwd
 ~~~
 
 ### for循环的特殊格式：
+```
 	for ((控制变量初始化；条件判断表达式；控制变量的修正表达式))；do
 		循环体
 	done
+```
 此种格式和C语言等的格式是一样一样的，只是多了一对括号；
+
 控制变量初始化：仅在运行到循环代码段时执行一次；
+
 控制变量的修正表达式：每轮循环结束会先进行控制变量修正运算，而后再在条件判断；
-Example：求100以内所有正整数之和：
+
+- Example：求100以内所有正整数之和：
+
+~~~shell
+#!/bin/bash
+#
+#for循环，类似C语言格式，求100以内正整数之和；
+
+declare -i sum=0
+
+for ((i=1;i<=100;i++));do
+	let sum+=$i
+done
+
+echo "Sum:$sum."
+
+~~~
+
+- Example：打印九九乘法表；
+
+~~~shell
+#!/bin/bash
+#
+#用类似于C语言风格的for循环打印九九乘法表；
+
+for((j=1;j<=9;j++));do
+	for((i=1;i<=j;i++));do
+		echo -e -n "${i}X${j}=$[$i*$j]\t"
+	done
+	echo
+done
+
+~~~
+
+### 练习：写一个脚本，完成以下任务：
+(1)	显示一个如下菜单：
+    cpu) show cpu information;
+    mem) show memory information;
+    disk) show disk information;
+    quit) quit
+(2)	提示用户选择选项；
+(3)	显示用户选择的内容；
 
 
 [返回目录](#目录)
