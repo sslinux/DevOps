@@ -1541,16 +1541,20 @@ echo "$username logggen on." >> /tmp/user.log
 #!/bin/bash
 #
 #用until造成死循环，循环判断用户输入的用户名是否登录；
-
 read -p "Enter a user name:" username
-
 until who | grep "^$username" &> /dev/null;do
 	sleep 3
 done
-
 echo "$username logged on." >> /tmp/user.log
-
 ~~~
+
+while循环的特殊用法：（遍历文件的每一行）
+	while read line;do
+		循环体
+	done < /PATH/FROM/SOMEFILE
+依次读取/PATH/FROM/SOMEFILE文件中的每一行，且将该行赋值给变量line；
+
+Example:依次读取/etc/passwd文件中的每一行，找出其ID号为偶数的所有用户，显示其用户名、ID号及默认shell；
 
 [返回目录](#目录)
 
