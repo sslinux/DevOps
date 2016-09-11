@@ -2264,13 +2264,25 @@ helloworld
 helloworld
 ~~~
 
-
-
-
-
-
 [返回目录](#目录)
 
 
 ## <span id="20S脚本的配置文件">20脚本的配置文件</span>
+###步骤：
+-	(1) 定义文本文件，每行定义“name=value”
+-	(2) 在脚本中source此文件即可
+
+~~~shell
+[root@kalaguiyin scripts]# touch /tmp/config.test #创建配置文件；
+[root@kalaguiyin scripts]# echo "name=kalaguiyin" >> /tmp/config.test #在配置文件中定义变量；
+[root@kalaguiyin scripts]# vim script_configureFile.sh		#编写脚本，导入配置文件；如内容所示；
+[root@kalaguiyin scripts]# bash script_configureFile.sh 	#脚本执行结果；
+kalaguiyin
+[root@kalaguiyin scripts]# cat script_configureFile.sh 
+#!/bin/bash
+#
+source /tmp/config.test		#导入配置文件，脚本自身并未定义变量；
+
+echo $name				#引用的是配置文件中的变量name
+~~~
 [返回目录](#目录)
