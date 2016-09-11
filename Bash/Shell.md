@@ -1548,13 +1548,39 @@ done
 echo "$username logged on." >> /tmp/user.log
 ~~~
 
-while循环的特殊用法：（遍历文件的每一行）
+### while循环的特殊用法：（遍历文件的每一行）
+```
 	while read line;do
 		循环体
 	done < /PATH/FROM/SOMEFILE
+```
 依次读取/PATH/FROM/SOMEFILE文件中的每一行，且将该行赋值给变量line；
 
-Example:依次读取/etc/passwd文件中的每一行，找出其ID号为偶数的所有用户，显示其用户名、ID号及默认shell；
+- Example:依次读取/etc/passwd文件中的每一行，找出其ID号为偶数的所有用户，显示其用户名、ID号及默认shell；
+
+~~~shell
+#!/bin/bash
+#while循环的特殊用法，读取指定文件的每一行并赋值给变量；
+
+while read line;do
+	if [ $[`echo $line | cut -d: -f3` % 2] -eq 0 ];then
+		echo -e -n "username:`echo $line | cut -d: -f1`\t"
+		echo -e -n "uid: `echo $line | cut -d: -f3`\t"
+		echo "SHELL:`echo $line | cut -d: -f7`"
+	fi
+done < /etc/passwd
+
+~~~
+
+### for循环的特殊格式：
+	for ((控制变量初始化；条件判断表达式；控制变量的修正表达式))；do
+		循环体
+	done
+此种格式和C语言等的格式是一样一样的，只是多了一对括号；
+控制变量初始化：仅在运行到循环代码段时执行一次；
+控制变量的修正表达式：每轮循环结束会先进行控制变量修正运算，而后再在条件判断；
+Example：求100以内所有正整数之和：
+
 
 [返回目录](#目录)
 
