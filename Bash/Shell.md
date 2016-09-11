@@ -1903,15 +1903,224 @@ done
 
 函数递归：函数直接或间接调用自身；
 
+- Example:求N的阶乘：
+```
+N！=N（N-1）(N-2)….1
+	N(N-1)!=N(N-1)(N-2)!
+```
+
+~~~shell
+#!/bin/bash
+#
+#利用函数递归求N的阶乘；
+
+fact() {
+	if [ $1 -eq 0 -o $1 -eq 1 ];then
+		echo 1
+	else
+		echo $[$1*$(fact $[$1-1])]
+	fi
+}
+fact 5
+~~~
+
+- Example:求n阶斐波拉契数列：
+~~~shell
+#!/bin/bash
+#
+#函数递归：求n阶斐波拉契数列的第n项；
+
+fab() {
+	if [ $1 -eq 1 ];then
+		echo 1
+	elif [ $1 -eq 2 ];then
+		echo 1
+	else
+		echo $[$(fab $[$1-1])+$(fab $[$1-2])]
+	fi
+}
+
+fab 7
+~~~
 
 [返回目录](#目录)
 
 
 ## <span id="18数组">18数组</span>
+### 数组：
+
+	变量：存储单个元素的内存空间；
+```
+	数组：存储多个元素的连续的内存空间；
+		数组名
+		索引：编号从0开始，属于数值索引；
+			注意：索引页可支持使用自定义的格式，而不仅仅是数值格式；
+				bash的数组支持稀疏格式；
+```
+
+- 引用数组中的元素： ${ARRAY_NAME[INDEX]}
+
+- 声明数组：
+
+	declare –a ARRAY_NAME
+
+	declare –A ARRAY_NAME : 关联数组；
+
+- 数组元素的赋值：
+	(1)	一次只赋值一个元素；
+
+	ARRAY_NAME[INDEX]=VALUE
+
+```
+	例如：
+			weekdays[0]="Sunday"
+			weekdays[4]="Thursday"
+```
+
+	(2)	一次赋值全部元素：
+
+			ARRAY_NAME=("VAL1" "VAL2" "VAL3" ...)
+
+	(3)	只赋值特定元素：
+
+			ARRAY_NAME=([0]="VAL1" [3]="VAL2" ...)
+
+	(4)	read -a ARRAY 
+
+- 引用数组元素：${ARRAY_NAME[INDEX]}
+
+	注意：省略[INDEX]表示引用下标为0的元素；
+
+-数组的长度(数组中元素的个数)：
+
+	${#ARRAY_NAME[*]}
+	${#ARRAY_NAME[@]}
+
+- Example:生成10个随机数保存于数组中，并找出其最大值和最小值：
+
+~~~shell
+#!/bin/bash
+#
+#生成10个随机数保存于数组中；
+
+declare -a rand
+declare -i max=0
+declare -i min=0
+
+for i in {0..9};do
+	rand[$i]=$RANDOM
+	if [ $i -eq 1 ];then
+		max=${rand[$i]}
+		min=${rand[$i]}
+	fi
+	echo ${rand[$i]}
+	[ ${rand[$i]} -gt $max ] && max=${rand[$i]}
+	[ ${rand[$i]} -lt $min ] && min=${rand[$i]}
+done
+
+echo "Max:$max"
+echo "Min:$min"
+~~~
+
+- Example：写一个脚本：定义一个数组，数组中的元素是/var/log目录下所有以.log结尾的文件；要统计其下标为偶数的文件中的行数之和；
+
+~~~shell
+#!/bin/bash
+#
+#定义一个数组，数组中的元素是/var/log目录下所有以.log结尾的文件；
+#要统计其下标为偶数的文件中的行数之和；
+
+declare -a files
+files=(/var/log/*.log)
+declare -i lines=0
+
+for i in $(seq 0 $[${#files[*]}-1]);do
+	if [ $[$i%2] -eq 0 ];then
+		let lines+=$(wc -l ${files[$i]} | cut -d' ' -f1)
+	fi
+done 
+
+echo "Lines:$lines."
+~~~
+
+### 引用数组中的元素：
+
+- 所有元素：${ARRAY[@]} , ${ARRAY[*]}
+	
+- 数组切片：${ARRAY[@]:offset:number}
+
+		offset:要跳过的元素个数；
+
+		number：要取出的元素个数，取偏移量之后的所有元素：${ARRAY[@]:offset};
+
+- 向数组中追加元素：ARRAY[${ARRAY[*]}]
+
+- 删除数组中的某元素：unset ARRAY[INDEX]
+
+- 关联数组：
+~~~shell
+	declare –A ARRAY_NAME
+	ARRAY_NAME=([index_name1]=’val1’ [index_name2]=’val2’ ….)
+~~~
+
+~~~shell
+[root@kalaguiyin scripts]# declare -a array
+[root@kalaguiyin scripts]# #声明一个数组，不是必要的
+[root@kalaguiyin scripts]# array=(0 1 2)
+[root@kalaguiyin scripts]# array=([0]=0 [1]=1 [2]=v2)
+[root@kalaguiyin scripts]# array[0]=5
+[root@kalaguiyin scripts]# echo $array
+5
+[root@kalaguiyin scripts]#
+~~~
+
+~~~shell
+[root@kalaguiyin scripts]# #以空白作为分隔符拆分字符串为数组
+[root@kalaguiyin scripts]# str="1 2 3"
+[root@kalaguiyin scripts]# array=($str)
+[root@kalaguiyin scripts]# echo $array
+1
+[root@kalaguiyin scripts]#
+~~~
+
+~~~shell
+[root@kalaguiyin scripts]# #使用其他分隔符拆分字符串为数组，需指定IFS
+[root@kalaguiyin scripts]# IFS=: array=($PATH)
+[root@kalaguiyin scripts]# echo $array
+/usr/local/sbin
+~~~
+
+- 引用数组元素：
+	$array  ${array}  ${array[0]}  #第0个元素
+
+	${array[n]}  #第n个元素（n从0开始计算）
+
+- 引用整个数组：
+	${array[*]}  ${array[@]}   这两种方式等同，会把数组展开。
+
+	${array[*]}  表示把数组拼接在一起的整个字符串，如果作为参数传递，会把整个字符串作为一个参数。
+
+	${array[@]}  如果作为参数传递，表示把数组中每个元素作为一个参数，数组有多少个元素，就会展开成多少个参数。
+
+- 计算数组元素长度；
+
+	${#array[*]}  ${#array[@]}   不是 ${#array}，因为它等同于 ${#array[0]}
+
+- 遍历数组：
+	for i in "${array[@]}";do 
+		echo $i;
+	done
+
 [返回目录](#目录)
 
 
 ## <span id="19bash的字符串处理工具">19bash的字符串处理工具</span>
+
+
+
+
+
+
 [返回目录](#目录)
 
 
