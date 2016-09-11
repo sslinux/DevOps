@@ -1452,19 +1452,105 @@ done
 ### <span id="循环控制语句">循环控制语句</span>
 循环控制语句，用于循环体中；
 - 1.continue [N] : 提前结束第N层的本轮循环，而直接进入下一轮判断；
+
+```
+while CONDITION1；do
+    COMMAND1
+    …..
+    if CONDITION2;then
+	continue
+    fi
+    COMMANDn
+    ….
+done
 ```
 
-while CONDITION1；do
-		COMMAND1
-		…..
-		if CONDITION2;then
-			continue
-		fi
-		COMMANDn
-		….
+- 2.break [N] : 提前结束循环；
+
+```
+while CONDITION1;do
+    CMD1
+    ….
+    if CONDITION2;then
+        break
+    fi
+    CMDn
+    …
 done
 
 ```
+
+- Example:求100以内所有偶数之和：要求循环遍历100以内的所有正整数；
+
+~~~shell
+#!/bin/bash
+#
+#求100以内所有偶数之和，使用continue跳过奇数；
+declare -i i=0
+declare -i sum=0
+
+until [ $i -gt 100 ];do
+	let i++
+	if [ $[$i%2] -eq 1 ];then
+		continue
+	fi
+	let sum+=$i
+done
+
+echo "Even sum:$sum"
+
+~~~
+
+### <span id="创建死循环">创建死循环</span>
+
+```
+while true;do
+	循环体
+done
+```
+
+```
+until false；do
+	循环体
+done
+
+```
+
+- Example：每隔3秒钟到系统上获取已经登录的用户信息；如果用户输入的用户名登录了，则记录于日志中，并退出；
+
+~~~shell
+#!/bin/bash
+#
+#用while造成死循环，在系统上每隔3秒判断一次用户输入的用户名是否登录；
+read -p "Enter a user name:" username
+
+while true;do
+	if who | grep "^$username" &> /dev/null;then
+		break
+	fi
+	sleep 3
+done
+
+echo "$username logggen on." >> /tmp/user.log
+
+~~~
+
+- Example：使用until实现上述功能：
+
+~~~shell
+#!/bin/bash
+#
+#用until造成死循环，循环判断用户输入的用户名是否登录；
+
+read -p "Enter a user name:" username
+
+until who | grep "^$username" &> /dev/null;do
+	sleep 3
+done
+
+echo "$username logged on." >> /tmp/user.log
+
+~~~
 
 [返回目录](#目录)
 
