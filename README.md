@@ -5,10 +5,10 @@
 ###*****************************Begin**********************************
 
 ## Linux基础:
-* [Bash特性及脚本编程](Bash/Shell.md)
+* [Bash特性及脚本编程](DevOps/Bash/Shell.md)
 
 ## 运维工具：
-* [Ansible](ansible/ansible.md)
+* [Ansible](DevOps/ansible/ansible.md)
 
 ## Web服务
 * [WebService](https://github.com/sslinux/DevOps/blob/master/WebService/WebService.md)
