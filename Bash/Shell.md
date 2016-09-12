@@ -166,7 +166,7 @@ bash使用特殊变量$?保存最近一条命令的执行状态结果；
 
 - 环境变量$?的取值：
 
-     值： 0 ： 成功；
+      0 ： 成功；
 
      1-255：失败，1,127,255为系统保留；
 
@@ -202,7 +202,7 @@ a、alias ： 显示当前shell进程所有可用的命令别名；
 
 b、定义别名，格式为： alias NAME='VALUE'  
 
-定义别名NAME，其执行相当于执行命令VALUE，VALUE中可包含命令、选项以及参数；仅当前会话有效，不建议使用；
+	定义别名NAME，其执行相当于执行命令VALUE，VALUE中可包含命令、选项以及参数；仅当前会话有效，不建议使用；
 
 c、通过修改配置文件定义命令别名：
 
@@ -249,6 +249,7 @@ alias mv='mv -i'
 ## <span id="07通配符glob">07通配符glob</span>
 
 Bash中用于文件名"通配"
+
 - 通配符： *,?,[]
 
     1) * 任意长度的任意字符；
@@ -260,15 +261,16 @@ drwxr-x---. 3 root root 41 Sep 3 22:05 /etc/audisp
 drwxr-x---. 3 root root 79 Sep 3 22:09 /etc/audit
 ~~~
 
-    2)  ? 任意单个字符；
+2)  ? 任意单个字符；  
+
+       	 	a?b
         
-        a?b
 ~~~shell
 [root@sslinux sslinux]# ls -ld /etc/*d?t
 drwxr-x---. 3 root root 79 Sep 3 22:09 /etc/audit
 ~~~       
 
-    3) []   匹配指定范围内的任意单个字符；
+3)  []   匹配指定范围内的任意单个字符；
 
         [0-9]    [a-z]   不区分大小写；
         [admin]    可以是区间形式的，也可以是离散形式的；
@@ -280,7 +282,9 @@ drwxr-xr-x. 2 root root 33 Sep 3 22:04 /etc/bash_completion.d
 -rw-r--r--. 1 root root 2835 Oct 29 2014 /etc/bashrc
 drwxr-xr-x. 2 root root 6 Mar 6 2015 /etc/binfmt.d
 ~~~
-    4) [^] 匹配指定范围以外的任意单个字符；
+
+  4)   [^] 匹配指定范围以外的任意单个字符；
+    
 ```
         [^0-9] : 单个非数字的任意字符；
 ```
@@ -434,6 +438,7 @@ cat: /etc/passwd.error: No such file or directory
 将标准输出和标准错误输出各自重定向至不同位置：
 
      COMMAND > /path/to/file.out 2> /path/to/error.out
+     
 - Example:
 ```
 # cat /etc/passwd > ./file.out 2> ./error.out
@@ -1046,7 +1051,7 @@ if语句：
      if-true(条件为真时的执行语句集合)
  fi
 ```
-### Example:
+- Example:
 ~~~shell
 #!/bin/bash
 #if单分支语句测试；
@@ -1063,7 +1068,7 @@ fi
      if-false
  fi
 ```
-### Example:
+- Example:
 
 ~~~shell
 #!/bin/bash
@@ -2002,6 +2007,7 @@ fab 7
 - 数组的长度(数组中元素的个数)：
 
 	${#ARRAY_NAME[*]}
+	
 	${#ARRAY_NAME[@]}
 
 - Example:生成10个随机数保存于数组中，并找出其最大值和最小值：
@@ -2112,7 +2118,13 @@ echo "Lines:$lines."
 
 - 计算数组元素长度；
 
-	${#array[*]}  ${#array[@]}   不是 ${#array}，因为它等同于 ${#array[0]}
+	${#array[*]}  
+	
+	${#array[@]}   
+	
+		不是 ${#array}，
+	
+		因为它等同于 ${#array[0]}
 
 - 遍历数组：
 	for i in "${array[@]}";do 
