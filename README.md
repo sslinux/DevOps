@@ -20,3 +20,4 @@
 * [Xen](https://github.com/sslinux/DevOps/blob/master/virtualization/xen/xen.md)
 * [KVM](https://github.com/sslinux/DevOps/blob/master/virtualization/kvm/kvm.md)
 * [Docker](https://github.com/sslinux/DevOps/blob/master/virtualization/docker/docker.md)
+* [OpenStack](virtualization/openstack/openstack.md)
