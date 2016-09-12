@@ -11,9 +11,9 @@
 * [Ansible](ansible/ansible.md)
 
 ## Web服务
-* [WebService](WebService/WebService.md)
-  - [HttpProtocol](WebService/HttpProtocol/HttpProtocol.md)
-  - [Apache](WebService/Apache/apache.md)
+* [WebService](https://github.com/sslinux/DevOps/blob/master/WebService/WebService.md)
+  - [HttpProtocol](https://github.com/sslinux/DevOps/blob/master/WebService/HttpProtocol/HttpProtocol.md)
+  - [Apache](https://github.com/sslinux/DevOps/blob/master/WebService/Apache/apache.md)
 
 
 ## 虚拟化：
