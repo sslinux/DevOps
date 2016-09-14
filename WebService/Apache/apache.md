@@ -89,7 +89,8 @@ CentOS 7: 2.4
 ~~~
 
 - 程序环境：
->	**配置文件：**
+
+>**配置文件：**
 		/etc/httpd/conf/httpd.conf
 		/etc/httpd/conf.d/*.conf
 		
@@ -133,53 +134,66 @@ CentOS 7: 2.4
 ### 常用配置：
 
 - 1、监听的IP和端口：
+
 Listen [IP:]PORT
+
 IP可以省略，省略是表示该端口监听在主机的所有IP地址上；
 Listen参数可出现多次；即可以监听在多个IP或端口上；
 对于修改了监听的端口和IP，只能通过restart使其生效；   生产环境中应提前规划好，其他设置可以reload生效；
 
->	[root@symbio ~]# cp /etc/httpd/conf/httpd.conf{,.bak}         	#修改前先备份配置文件，好习惯！
+~~~shell
+	[root@symbio ~]# cp /etc/httpd/conf/httpd.conf{,.bak}         	#修改前先备份配置文件，好习惯！
 	[root@symbio ~]# ls /etc/httpd/conf/
 	httpd.conf  httpd.conf.bak  magic
-
-
+~~~
+修改配置文件：
+~~~shell
 	[root@symbio ~]# grep "Listen" /etc/httpd/conf/httpd.conf
 	# Listen: Allows you to bind Apache to specific IP addresses and/or
 	# Change this to Listen on specific IP addresses as shown below to 
 	#Listen 12.34.56.78:80
 	Listen 80
-	
->	[root@symbio ~]# service httpd start                 #启动httpd服务；
+~~~
+重启服务：	
+~~~shell
+	[root@symbio ~]# service httpd start                 #启动httpd服务；
 	 Starting httpd:                                            [  OK  ]
 	 [root@symbio ~]# 
 
 	[root@symbio ~]# ss -tnl | grep 80	# 查看httpd服务绑定的端口是否监听；
 	LISTEN     0      128                      :::80                      :::*     
 	[root@symbio ~]# 
-
+~~~
 使用浏览器访问服务器IP地址即可看到下图：
 ![Apace_Welcome_Page](images/Apache_Welcome_Page.png  "Apace_Welcome_Page")	
 
 
 - 2、持久连接：
+
 	Persistent Connection: 连接建立，每个资源获取完成后不会断开连接，而是继续等待其他的请求完成；
+
 >	如何断开：
+
 		数量限制： 获取的资源数量达到上限，默认为100个；
 		时间限制： 可配置，在达到该时间限制后断开；
 
 	负作用：对并发访问量较大的服务器，持久连接功能会使得有些请求得不到响应；
->		折衷：使用较短的持久连接时间：
-			httpd-2.4 支持毫秒级持久时间；
+
+>	折衷：
+
+            使用较短的持久连接时间：
+            httpd-2.4 支持毫秒级持久时间；
 			
 非持久连接：
 	
-配置参数：
->	
-	KeepAlive Off                  		    	# 是否开启持久连接
+- 配置参数：
+~~~shell	
+	KeepAlive Off                          # 是否开启持久连接
 	MaxKeepAliveRequests 100		# 持久连接的最大请求资源数量；
 	KeepAliveTimeout 15			# 保持持久连接的最长时间，单为为秒；
-	
-Tlent测试持久连接的效果：
+~~~	
+
+- Telnet测试持久连接的效果：
 ~~~shell
 	[root@symbio ~]# telnet 172.27.8.27 80
 	Trying 172.27.8.27...
@@ -198,14 +212,17 @@ Tlent测试持久连接的效果：
 ~~~
 
 **测试：**
->	telnet HOST PORT
+~~~shell
+	telnet HOST PORT
 	GET /URL HTTP/1.1
 	Host: HOSTNAME or IP
-	
+~~~	
 - 3、MPM：Multipath Process Module: 多道处理模块；
+
 	prefork,worker,event
 	
 	httpd-2.2不支持同时编译多个模块，所以只能编译时选定一个；
+
 	rpm安装包提供了三个二进制程序文件，分别用于实现对不同MPM机制的支持；
 	
 	查看当前使用的是哪一个MPM模块:
@@ -225,7 +242,7 @@ Tlent测试持久连接的效果：
 
 默认为/usr/sbin/httpd,其使用prefork；
 
-查看模块列表的方式：
+- 查看模块列表的方式：
 >	httpd -l		# 查看静态编译的模块；
 ~~~shell
 [root@symbio ~]# httpd -l
@@ -236,7 +253,7 @@ Compiled in modules:
   mod_so.c     #模块接口；
 ~~~
 
-httpd命令的参数：
+- httpd命令的参数：
 ~~~shell
 [root@symbio ~]# httpd -h
 Usage: httpd [-D name] [-d directory] [-f file]
@@ -263,13 +280,15 @@ Options:
   -t                 : run syntax check for config files
 ~~~
 	
-查看静态编译及动态装载的模块：
+- 查看静态编译及动态装载的模块：
 	# httpd -M
 	
-更换使用的httpd程序：
->	# vim /etc/sysconfig/httpd
+- 更换使用的httpd程序：
+~~~shell
+	# vim /etc/sysconfig/httpd
 	启用：HTTPD=/usr/sbin/httpd.worker
 	重启httpd服务：service httpd restart
+~~~
 	
 ~~~shell
 	[root@symbio ~]# service httpd restart
@@ -323,15 +342,17 @@ prefork MPM的配置：
 ~~~	
 	
 	
-worker MPM的配置：
-	
->	# worker MPM
+- worker MPM的配置：
+```	
+	# worker MPM
 	# StartServers: initial number of server processes to start
 	# MaxClients: maximum number of simultaneous client connections
 	# MinSpareThreads: minimum number of worker threads which are kept spare
 	# MaxSpareThreads: maximum number of worker threads which are kept spare
 	# ThreadsPerChild: constant number of worker threads in each server process
 	# MaxRequestsPerChild: maximum number of requests a server process serves
+```
+
 ~~~shell
 	<IfModule worker.c>
 	StartServers         4	#服务器启动时启动的进程数；
@@ -346,12 +367,12 @@ worker MPM的配置：
 ~~~	
 	
 	
-访问量统计标准：
->	PV： Page View
-	 V：User View,独立IP；
-	 
+- 访问量统计标准：
 
-	 
+	PV： Page View
+
+	 V：User View,独立IP；
+	 	 
 - 4、DSO: Dynamic Shared Object;
 支持模块的动态装卸载；
 ~~~shell
@@ -502,26 +523,35 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combine
 	
 	
 - 10、路径别名：
+```
 DocumentRoot "/www/htdocs"
 	http://www.magedu.com/download/bash-4.4.2-3-el6.x86_64.rpm
 	--> /www/htdocs/download/bash-4.4.2-3-el6.x86_64.rpm
-	
+```
+
+```	
 Alias /URL/  "/PATH/TO/SOMEDIR/"
 	Alias /bbs/  "/forum/htdocs"
 		http://www.magedu.com/bbs/index.html
 		--> /forum/htdocs/bbs/
+```
 		
 - 11、设定默认字符集
+
 	AddDefaultCharset UTF-8
 	
 	GBK,GB2312,GB18030
 	
 - 13、基于用户的访问控制：
+
 	**认证质询：**
 		WWW-Authenticate：响应码为401，拒绝客户端请求，并说明要求客户端提供账号和密码；
+
 	**认证：**
 		Authorization： 客户端填入账号和密码后再次发送请求报文；认证通过，则服务器发送响应报的资源；
-		**认证类型：**
+
+	**认证类型：**
+
 			basic：明文认证访问；
 			digest：消息摘要认证访问，即MD5；
 			
@@ -538,6 +568,7 @@ Alias /URL/  "/PATH/TO/SOMEDIR/"
 			nis
 	
 	**basic认证：**
+
 1、定义安全域；
 ~~~shell
 			<Directory "">
@@ -582,7 +613,7 @@ Alias /URL/  "/PATH/TO/SOMEDIR/"
 	
 	
 	
-#随便插入一句,mysql或者mariadb忘记root密码解决办法:
+## 随便插入一句,mysql或者mariadb忘记root密码解决办法:
 ~~~shell
 # vim /etc/my.cnf
 skip-grant-tables    #在[mysqld]配置段中插入这一行;
