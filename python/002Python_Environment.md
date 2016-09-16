@@ -54,7 +54,7 @@ Linux平台上关于Python的安装就不多费唇舌了，大多数Linux发行�
 
 [源代码下载地址](https://www.python.org/ftp/python/3.6.0/Python-3.6.0b1.tar.xz)
 
-至于具体编译安装的步骤，请自行Google；
+	至于具体编译安装的步骤，请自行Google；
 
 [返回目录](#目录)
 
