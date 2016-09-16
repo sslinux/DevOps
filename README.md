@@ -5,12 +5,19 @@
 ###*****************************Begin**********************************
 
 ## Linux基础:
-* [Bash特性及脚本编程](Bash/Shell.md)
+* [Bash特性及脚本编程](https://github.com/sslinux/DevOps/blob/master/Bash/Shell.md)
 
 ## 运维工具：
-* [Ansible](ansible/ansible.md)
+* [Ansible](https://github.com/sslinux/DevOps/blob/master/ansible/ansible.md)
+
+## Web服务
+* [WebService](https://github.com/sslinux/DevOps/blob/master/WebService/WebService.md)
+  - [HttpProtocol](https://github.com/sslinux/DevOps/blob/master/WebService/HttpProtocol/HttpProtocol.md)
+  - [Apache](https://github.com/sslinux/DevOps/blob/master/WebService/Apache/apache.md)
+
 
 ## 虚拟化：
 * [Xen](https://github.com/sslinux/DevOps/blob/master/virtualization/xen/xen.md)
 * [KVM](https://github.com/sslinux/DevOps/blob/master/virtualization/kvm/kvm.md)
 * [Docker](https://github.com/sslinux/DevOps/blob/master/virtualization/docker/docker.md)
+* [OpenStack](https://github.com/sslinux/DevOps/blob/master/virtualization/openstack/openstack.md)
