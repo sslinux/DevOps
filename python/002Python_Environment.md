@@ -3,7 +3,7 @@
 <span id="目录">目录</span>
 
 * [Windows安装Python](#windows安装python)
-* [linux安装python](#linux安装python)
+* [linux安装Python](#linux安装python)
 
 
 [Python解释器下载地址](https://www.python.org/downloads/)
