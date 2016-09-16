@@ -36,7 +36,7 @@ Pycharm；
 
 [返回目录](#目录)
 
-<span id="linux安装python">Linux安装Python</span>
+###<span id="linux安装python">Linux安装Python</span>
 
 Linux平台上关于Python的安装就不多费唇舌了，大多数Linux发行版都已经自带了Python解释器；
 
