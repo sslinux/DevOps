@@ -3,7 +3,7 @@
 <span id="目录">目录</span>
 
 * [Windows安装Python](#windows安装python)
-* [linux安装Python](#linux安装python)
+* [Linux安装Python](#linux安装python)
 
 
 [Python解释器下载地址](https://www.python.org/downloads/)
@@ -36,7 +36,7 @@ Pycharm；
 
 [返回目录](#目录)
 
-<span id="linux安装python">linux安装python</span>
+<span id="linux安装python">Linux安装Python</span>
 
 Linux平台上关于Python的安装就不多费唇舌了，大多数Linux发行版都已经自带了Python解释器；
 
