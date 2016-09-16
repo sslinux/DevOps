@@ -42,11 +42,11 @@ Linux平台上关于Python的安装就不多费唇舌了，大多数Linux发行�
 
 如若不然，请自行安装：
 
-RHEL/CentOS:	yum install python-VERSION
+- RHEL/CentOS:	yum install python-VERSION
 
-Fedora:			dnf install python-VERSION
+- Fedora:			dnf install python-VERSION
 
-Ubuntu:			apt-get install python-VERSION
+- Ubuntu:			apt-get install python-VERSION
 
 ### 终极办法，源代码编译安装：
 
