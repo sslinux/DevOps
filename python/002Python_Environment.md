@@ -10,7 +10,7 @@
 
 关于如何选择Python的版本，官方给出了Python2和Python3的差异：
 
-	[Python2和Python3的差异](https://wiki.python.org/moin/Python2orPython3)
+[Python2和Python3的差异](https://wiki.python.org/moin/Python2orPython3)
 
 ### <span id="Windows安装Python">Windows安装Python</span>
 
