@@ -6,7 +6,7 @@
 * [Linux安装Python](#Linux安装Python)
 
 
-### [Python解释器下载地址](https://www.python.org/downloads/)
+[Python解释器下载地址](https://www.python.org/downloads/)
 
 关于如何选择Python的版本，官方给出了Python2和Python3的差异：
 
