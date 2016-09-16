@@ -1,1 +1,1 @@
-[001、python哲学](./pythonx哲学.md)
+[001、python哲学]( DevOps/python/python哲学.md )
