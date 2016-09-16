@@ -38,13 +38,17 @@ Pycharm；
 
 <span id="linux安装python">linux安装python</span>
 
-Linux平台上关于Python的安装就不多费唇舌了，大多数Linux发行版都已经自带了Python解释器；如若不然，请自行安装：
+Linux平台上关于Python的安装就不多费唇舌了，大多数Linux发行版都已经自带了Python解释器；
+
+如若不然，请自行安装：
 
 RHEL/CentOS:	yum install python-VERSION
+
 Fedora:			dnf install python-VERSION
+
 Ubuntu:			apt-get install python-VERSION
 
-# 终极办法，源代码编译安装：
+### 终极办法，源代码编译安装：
 
 [源代码下载地址](https://www.python.org/ftp/python/3.6.0/Python-3.6.0b1.tar.xz)
 
