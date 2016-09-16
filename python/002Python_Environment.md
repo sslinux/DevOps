@@ -14,6 +14,11 @@
 
 **************************正文开始：*******************************************
 ### <span id="Windows安装Python">Windows安装Python</span>
+[下载Python 3.5.2](https://www.python.org/ftp/python/3.5.2/python-3.5.2.exe)
+
+安装Python：
+![Windows安装Python](images/001windows_install_python.png)
+
 
 [返回目录](#目录)
 
