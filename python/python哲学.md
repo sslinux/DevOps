@@ -3,6 +3,7 @@
 Python开发者的哲学是“用一种方法，最好是只有一种方法来做一件事。在设计Python语言时，如果面临多种选择，Python开发者一般会拒绝花俏的语法，而选择明确没有或者很少有歧义的语法。由于这种设计观念的差异，Python源代码通常具备更好的可读性，并且能够支撑大规模的软件开发。这些准则被称为Python格言。
 
 # English:
+```
 The Zen of Python:
 >>> import this
 The Zen of Python, by Tim Peters
@@ -27,6 +28,7 @@ If the implementation is hard to explain, it's a bad idea.
 If the implementation is easy to explain, it may be a good idea.
 Namespaces are one honking great idea -- let's do more of those!
 >>>
+```
 
 # Chinese:
 优美胜于丑陋，明晰胜于隐晦
