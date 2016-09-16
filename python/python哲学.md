@@ -31,6 +31,7 @@ Namespaces are one honking great idea -- let's do more of those!
 ```
 
 # Chinese:
+```
 优美胜于丑陋，明晰胜于隐晦
 简单胜于复杂，复杂胜于繁芜
 扁平胜于嵌套，稀疏胜于密集
@@ -53,3 +54,4 @@ Namespaces are one honking great idea -- let's do more of those!
 名字空间就是个顶呱呱好的主意。
 
 让我们想出更多的好主意！
+```
