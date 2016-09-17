@@ -58,3 +58,14 @@ Linux平台上关于Python的安装就不多费唇舌了，大多数Linux发行�
 
 [返回目录](#目录)
 
+
+### 集成开发环境：
+
+IDE的全称是：Integrated Development Environment，简称IDE，
+
+也稱為Integration Design Environment、
+
+Integration Debugging Environment，翻译成中文叫做“集成开发环境”，
+
+推荐使用Pycharm，但Professional版本的是要收钱的，按年计费。
+
