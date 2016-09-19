@@ -1,0 +1,7 @@
+{
+    "gitbook": ">=2.0.0",
+    "language": "en",
+    "structure": {
+        "readme": "INTRO.md"
+    }
+}
