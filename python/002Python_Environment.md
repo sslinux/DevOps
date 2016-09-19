@@ -67,5 +67,5 @@ IDE的全称是：Integrated Development Environment，简称IDE，
 
 Integration Debugging Environment，翻译成中文叫做“集成开发环境”，
 
-推荐使用Pycharm，但Professional版本的是要收钱的，按年计费。
+Python的IDE推荐使用Pycharm，但Professional版本的是要收钱的，按年计费。
 
